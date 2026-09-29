@@ -14,7 +14,7 @@ CONTAINER_NAME="home-assistant-db"
 BACKUP_DIR="/opt/backups/mariadb"
 DB_NAME="homeassistant"
 DB_USER="root"
-DB_PASSWORD_FILE="${HOME}/.docker_mariadb_backup_pwd"
+DB_PASSWORD_FILE="/root/.docker_mariadb_backup_pwd"
 RETENTION_DAYS=7
 
 # Logs
@@ -171,12 +171,6 @@ verify_config() {
     if [ ! -w "${BACKUP_DIR}" ]; then
         log "ERROR" "No write permission in ${BACKUP_DIR}"
         return 1
-    fi
-
-    # log directory
-    if [ ! -d "${LOG_DIR}" ]; then
-        mkdir -p "${LOG_DIR}"
-        chmod 755 "${LOG_DIR}"
     fi
 
     # container
@@ -336,6 +330,9 @@ print_statistics() {
 # ============================================================================
 
 main() {
+    # log() writes to LOG_FILE, so the directory must exist before the first log line
+    mkdir -p "${LOG_DIR}"
+
     log "INFO" "MariaDB backup script - running as: $(whoami)"
 
     trap 'on_error ${LINENO}' ERR

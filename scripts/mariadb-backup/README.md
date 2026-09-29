@@ -5,7 +5,7 @@
 ## What it does
 
 1. **Lock** – exits if another backup is already running (`/var/run/mariadb_backup.lock`).
-2. **Config check** – creates the backup/log directories if needed, checks that the container is running, the password file exists and `jq`, `openssl`, `curl` are installed (when the webhook is enabled).
+2. **Config check** – creates the backup directory if needed, checks that the container is running, the password file exists and `jq`, `openssl`, `curl` are installed (when the webhook is enabled).
 3. **Backup** – runs `mariadb-dump --single-transaction` inside the container and gzips the output to `mariadb_<db>_full_<YYYYmmdd_HHMMSS>.sql.gz`.
 4. **Verification** – `gzip -t` integrity test and SQL line count.
 5. **Rotation** – deletes backups older than `RETENTION_DAYS`.
@@ -31,33 +31,40 @@ Edit the variables at the top of the script:
 | `BACKUP_DIR` | `/opt/backups/mariadb`         | Where backups are stored |
 | `DB_NAME` | `homeassistant`                | Database to back up |
 | `DB_USER` | `root`                         | Database user |
-| `DB_PASSWORD_FILE` | `~/.docker_mariadb_backup_pwd` | File containing the DB password (falls back to `$DB_PASSWORD` env var) |
+| `DB_PASSWORD_FILE` | `/root/.docker_mariadb_backup_pwd` | File containing the DB password (falls back to `$DB_PASSWORD` env var) |
 | `RETENTION_DAYS` | `7`                            | Days to keep backups |
-| `LOG_DIR` | `/var/log/mariadb-backup`      | Log directory (`backup.log`) |
+| `LOG_DIR` | `/var/log/mariadb-backup`      | Log directory (`backup.log`), created on start |
 | `ENABLE_WEBHOOK` | `false`                        | Enable/disable notifications |
 | `WEBHOOK_URL` | –                              | Webhook endpoint |
 | `WEBHOOK_SECRET` | –                              | HMAC secret shared with the receiver |
 | `WEBHOOK_TIMEOUT` | `10`                           | Max request time in seconds |
 
-Create the password file:
+Create the password file (both scripts run as root and read it from `/root`). Use an editor rather than `echo`, so the
+password doesn't end up in your shell history:
 
 ```bash
-echo 'your_password' > ~/.docker_mariadb_backup_pwd
-chmod 600 ~/.docker_mariadb_backup_pwd
+sudo nano /root/.docker_mariadb_backup_pwd
+sudo chmod 600 /root/.docker_mariadb_backup_pwd
 ```
 
 ## Usage
 
-The script writes to `/var/run`, `/var/log` and `/opt`, so run it as root:
+Install the script and run it as root (it writes to `/var/run`, `/var/log` and `/opt`):
 
 ```bash
-sudo ./mariadb_backup.sh
+sudo curl -fsSL -o /usr/local/bin/mariadb_backup.sh \
+  https://raw.githubusercontent.com/MS151994/myhomecontrol-assets/main/scripts/mariadb-backup/mariadb_backup.sh
+sudo chmod 700 /usr/local/bin/mariadb_backup.sh
+sudo mariadb_backup.sh
 ```
 
-### Cron (daily at 3:00)
+### Schedule (daily at 2:00)
+
+Recommended: a systemd service + timer (`mariadb-backup.service` / `mariadb-backup.timer`), described step by step in
+the blog post. Alternatively, in root's crontab (`sudo crontab -e`):
 
 ```cron
-0 3 * * * /path/to/backup-script.sh >/dev/null 2>&1
+0 2 * * * /usr/local/bin/mariadb_backup.sh >/dev/null 2>&1
 ```
 
 Logs are written to `/var/log/mariadb-backup/backup.log` (and to stderr).
@@ -85,7 +92,10 @@ Signature: `X-Webhook-Signature: hex(HMAC-SHA256(secret, raw_body))`.
 Use `restore_mariadb.sh` – it checks the file and container, asks for confirmation (type `yes`), restores the dump, counts the tables and sends a webhook (success or `critical` failure, same config variables as the backup script):
 
 ```bash
-sudo ./restore_mariadb.sh /opt/backups/mariadb/mariadb_homeassistant_full_<timestamp>.sql.gz
+sudo curl -fsSL -o /usr/local/bin/restore_mariadb.sh \
+  https://raw.githubusercontent.com/MS151994/myhomecontrol-assets/main/scripts/mariadb-backup/restore_mariadb.sh
+sudo chmod 700 /usr/local/bin/restore_mariadb.sh
+sudo restore_mariadb.sh /opt/backups/mariadb/mariadb_homeassistant_full_<timestamp>.sql.gz
 ```
 
 Manual equivalent:
@@ -95,4 +105,4 @@ gunzip -c /opt/backups/mariadb/mariadb_homeassistant_full_<timestamp>.sql.gz \
   | docker exec -i home-assistant-db mariadb -uroot -p'<password>' homeassistant
 ```
 
-Stop Home Assistant before restoring.
+Stop Home Assistant before restoring (`docker stop homeassistant`) and start it again afterwards.
