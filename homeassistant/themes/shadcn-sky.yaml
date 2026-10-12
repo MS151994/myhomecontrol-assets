@@ -1,0 +1,244 @@
+Shadcn Sky:
+  # --- font ---
+  sc-font: "'Montserrat', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif"
+  ha-font-family-body: var(--sc-font)
+  ha-font-family-heading: var(--sc-font)
+  primary-font-family: var(--sc-font)
+  paper-font-common-base_-_font-family: var(--sc-font)
+  paper-font-body1_-_font-family: var(--sc-font)
+  mdc-typography-font-family: var(--sc-font)
+  mdc-typography-body1-font-family: var(--sc-font)
+
+  # --- radius (shadcn "large" = 0.875rem) ---
+  sc-radius: 14px
+  sc-radius-sm: 10px
+  sc-radius-lg: 18px
+  ha-card-border-radius: var(--sc-radius)
+  ha-dialog-border-radius: var(--sc-radius-lg)
+  ha-card-border-width: 1px
+  ha-card-box-shadow: none
+
+  # --- Bubble Card - shapes ---
+  bubble-border-radius: var(--sc-radius)
+  bubble-button-border-radius: var(--sc-radius-sm)
+  bubble-icon-border-radius: var(--sc-radius-sm)
+  bubble-pop-up-border-radius: var(--sc-radius-lg)
+
+  # --- charts (shadcn chart sky) ---
+  sc-chart-1: "#78d4ff"
+  sc-chart-2: "#00a5ea"
+  sc-chart-3: "#0084c7"
+  sc-chart-4: "#0069a2"
+  sc-chart-5: "#005986"
+  graph-color-1: var(--sc-chart-2)
+  graph-color-2: var(--sc-chart-1)
+  graph-color-3: var(--sc-chart-3)
+  graph-color-4: var(--sc-chart-5)
+  graph-color-5: var(--sc-chart-4)
+
+  modes:
+    # ======================= light =======================
+    light:
+      # --- shadcn tokens (for use in button-card / card-mod) ---
+      sc-background: "#ffffff"
+      sc-foreground: "#0a0a0a"
+      sc-card: "#ffffff"
+      sc-popover: "#ffffff"
+      sc-primary: "#0069a2"
+      sc-primary-foreground: "#f0f9ff"
+      sc-active: "#0069a2"
+      sc-muted: "#f5f5f5"
+      sc-muted-foreground: "#737373"
+      sc-border: "#e5e5e5"
+      sc-input: "#e5e5e5"
+      sc-ring: "#a1a1a1"
+      sc-destructive: "#e40016"
+      sc-glass: "rgba(255, 255, 255, 0.92)"
+
+      # --- base HA colors ---
+      primary-color: var(--sc-primary)
+      accent-color: var(--sc-primary)
+      dark-primary-color: "#005986"
+      light-primary-color: "#e0f2fe"
+      text-primary-color: var(--sc-primary-foreground)
+      primary-text-color: var(--sc-foreground)
+      secondary-text-color: var(--sc-muted-foreground)
+      disabled-text-color: "#a1a1a1"
+      divider-color: var(--sc-border)
+      error-color: var(--sc-destructive)
+
+      rgb-primary-color: "0, 105, 162"
+      rgb-accent-color: "0, 105, 162"
+      rgb-primary-text-color: "10, 10, 10"
+      rgb-secondary-text-color: "115, 115, 115"
+      rgb-text-primary-color: "240, 249, 255"
+      rgb-card-background-color: "255, 255, 255"
+      primary-background-color: var(--sc-background)
+      secondary-background-color: var(--sc-muted)
+      lovelace-background: "#fafafa"
+      card-background-color: var(--sc-card)
+      ha-card-background: var(--sc-card)
+      ha-card-border-color: var(--sc-border)
+
+      # --- dialogs and menus (solid color, no transparency) ---
+      ha-dialog-surface-background: var(--sc-popover)
+      mdc-theme-surface: var(--sc-popover)
+      mdc-theme-primary: var(--sc-primary)
+      mdc-theme-on-primary: var(--sc-primary-foreground)
+      mdc-theme-text-primary-on-background: var(--sc-foreground)
+      mdc-dialog-scrim-color: "rgba(0, 0, 0, 0.4)"
+
+      # --- header and sidebar ---
+      app-header-background-color: var(--sc-background)
+      app-header-text-color: var(--sc-foreground)
+      app-header-border-bottom: "1px solid var(--sc-border)"
+      sidebar-background-color: "#fafafa"
+      sidebar-text-color: var(--sc-muted-foreground)
+      sidebar-icon-color: var(--sc-muted-foreground)
+      sidebar-selected-background-color: var(--sc-muted)
+      sidebar-selected-text-color: var(--sc-foreground)
+      sidebar-selected-icon-color: var(--sc-foreground)
+      sidebar-menu-button-text-color: var(--sc-foreground)
+
+      # --- forms ---
+      input-fill-color: var(--sc-background)
+      input-ink-color: var(--sc-foreground)
+      input-label-ink-color: var(--sc-muted-foreground)
+      input-idle-line-color: var(--sc-input)
+      input-hover-line-color: var(--sc-ring)
+      input-outlined-idle-border-color: var(--sc-input)
+      input-outlined-hover-border-color: var(--sc-ring)
+      input-dropdown-icon-color: var(--sc-muted-foreground)
+      mdc-text-field-fill-color: var(--sc-background)
+      mdc-select-fill-color: var(--sc-background)
+      code-editor-background-color: var(--sc-muted)
+
+      # --- switches ---
+      switch-checked-color: var(--sc-primary)
+      switch-checked-button-color: "#ffffff"
+      switch-checked-track-color: var(--sc-primary)
+      switch-unchecked-button-color: "#ffffff"
+      switch-unchecked-track-color: "#d4d4d4"
+
+      # --- states and tables ---
+      state-icon-color: var(--sc-muted-foreground)
+      state-active-color: var(--sc-active)
+      table-row-background-color: var(--sc-card)
+      table-row-alternative-background-color: "#fafafa"
+      data-table-background-color: var(--sc-card)
+
+      # --- Bubble Card ---
+      bubble-main-background-color: var(--sc-card)
+      bubble-secondary-background-color: var(--sc-muted)
+      bubble-pop-up-background-color: var(--sc-glass)
+      bubble-backdrop-background-color: "rgba(0, 0, 0, 0.25)"
+      bubble-icon-background-color: var(--sc-muted)
+      bubble-accent-color: var(--sc-primary)
+
+      # --- tiles ---
+      tile-bg: var(--sc-card)
+      tile-bg-active: var(--sc-primary)
+      tile-fg-active: var(--sc-primary-foreground)
+
+    # ======================= dark ========================
+    dark:
+      # --- shadcn tokens ---
+      sc-background: "#0a0a0a"
+      sc-foreground: "#fafafa"
+      sc-card: "#171717"
+      sc-popover: "#171717"
+      sc-primary: "#005986"
+      sc-primary-foreground: "#f0f9ff"
+      sc-active: "#00a5ea" # lighter sky - readable on dark background
+      sc-muted: "#262626"
+      sc-muted-foreground: "#a1a1a1"
+      sc-border: "rgba(255, 255, 255, 0.10)"
+      sc-input: "rgba(255, 255, 255, 0.15)"
+      sc-ring: "#737373"
+      sc-destructive: "#ff6568"
+      sc-glass: "rgba(23, 23, 23, 0.92)"
+
+      # --- base HA colors ---
+      primary-color: var(--sc-active)
+      accent-color: var(--sc-active)
+      dark-primary-color: var(--sc-primary)
+      light-primary-color: "#0c4a6e"
+      text-primary-color: var(--sc-primary-foreground)
+      primary-text-color: var(--sc-foreground)
+      secondary-text-color: var(--sc-muted-foreground)
+      disabled-text-color: "#525252"
+      divider-color: var(--sc-border)
+      error-color: var(--sc-destructive)
+
+      rgb-primary-color: "0, 165, 234"
+      rgb-accent-color: "0, 165, 234"
+      rgb-primary-text-color: "250, 250, 250"
+      rgb-secondary-text-color: "161, 161, 161"
+      rgb-text-primary-color: "240, 249, 255"
+      rgb-card-background-color: "23, 23, 23"
+      primary-background-color: var(--sc-background)
+      secondary-background-color: var(--sc-card)
+      lovelace-background: var(--sc-background)
+      card-background-color: var(--sc-card)
+      ha-card-background: var(--sc-card)
+      ha-card-border-color: var(--sc-border)
+
+      # --- dialogs and menus ---
+      ha-dialog-surface-background: var(--sc-popover)
+      mdc-theme-surface: var(--sc-popover)
+      mdc-theme-primary: var(--sc-active)
+      mdc-theme-on-primary: "#082f49"
+      mdc-theme-text-primary-on-background: var(--sc-foreground)
+      mdc-dialog-scrim-color: "rgba(0, 0, 0, 0.6)"
+
+      # --- header and sidebar ---
+      app-header-background-color: var(--sc-background)
+      app-header-text-color: var(--sc-foreground)
+      app-header-border-bottom: "1px solid var(--sc-border)"
+      sidebar-background-color: var(--sc-background)
+      sidebar-text-color: var(--sc-muted-foreground)
+      sidebar-icon-color: var(--sc-muted-foreground)
+      sidebar-selected-background-color: var(--sc-muted)
+      sidebar-selected-text-color: var(--sc-foreground)
+      sidebar-selected-icon-color: var(--sc-foreground)
+      sidebar-menu-button-text-color: var(--sc-foreground)
+
+      # --- forms ---
+      input-fill-color: "rgba(255, 255, 255, 0.04)"
+      input-ink-color: var(--sc-foreground)
+      input-label-ink-color: var(--sc-muted-foreground)
+      input-idle-line-color: var(--sc-input)
+      input-hover-line-color: var(--sc-ring)
+      input-outlined-idle-border-color: var(--sc-input)
+      input-outlined-hover-border-color: var(--sc-ring)
+      input-dropdown-icon-color: var(--sc-muted-foreground)
+      mdc-text-field-fill-color: "rgba(255, 255, 255, 0.04)"
+      mdc-select-fill-color: "rgba(255, 255, 255, 0.04)"
+      code-editor-background-color: var(--sc-background)
+
+      # --- switches ---
+      switch-checked-color: var(--sc-active)
+      switch-checked-button-color: "#ffffff"
+      switch-checked-track-color: var(--sc-active)
+      switch-unchecked-button-color: "#a1a1a1"
+      switch-unchecked-track-color: var(--sc-muted)
+
+      # --- states and tables ---
+      state-icon-color: var(--sc-muted-foreground)
+      state-active-color: var(--sc-active)
+      table-row-background-color: var(--sc-card)
+      table-row-alternative-background-color: "#1c1c1c"
+      data-table-background-color: var(--sc-card)
+
+      # --- Bubble Card ---
+      bubble-main-background-color: var(--sc-card)
+      bubble-secondary-background-color: var(--sc-muted)
+      bubble-pop-up-background-color: var(--sc-glass)
+      bubble-backdrop-background-color: "rgba(0, 0, 0, 0.45)"
+      bubble-icon-background-color: var(--sc-muted)
+      bubble-accent-color: var(--sc-active)
+
+      # --- tiles ---
+      tile-bg: var(--sc-card)
+      tile-bg-active: var(--sc-foreground)
+      tile-fg-active: var(--sc-background)
